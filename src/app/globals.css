@@ -1,4 +1,26 @@
-body {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Dosis", sans-serif;
+}
+header {
+  background: linear-gradient(90deg, #ff6900, #ff005f);
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+/*body {
   background-color: #000;
   font-family: "Courier New", Courier, monospace;
 }
@@ -52,4 +74,4 @@ li > article > button {
 }
 section > button{
   border-radius: 8px;
-}
+}*/
