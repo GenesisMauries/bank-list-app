@@ -4,12 +4,12 @@ import { getBanks } from "../services/api";
 import Card from "../components/card";
 import Search from "../components/search";
 import List from "../components/list";
-
+import Image from "next/image";
 export default function Banks() {
   const [banks, setBanks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
     getBanks()
@@ -43,7 +43,7 @@ export default function Banks() {
   };
   const handleSort = () => {
     const sortedBanks = [...banks].sort((a, b) => {
-      if (sortOrder === 'asc') {
+      if (sortOrder === "asc") {
         return a.bankName.localeCompare(b.bankName);
       } else {
         return b.bankName.localeCompare(a.bankName);
@@ -51,20 +51,31 @@ export default function Banks() {
     });
 
     setBanks(sortedBanks);
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
   return (
     <section>
-      <article>
-        <h3>Busqueda por nombre</h3>
-        <Search
-          searchTerm={searchTerm}
-          handleSearchChange={handleSearchChange}
-        />
-      </article>
-
+      <section className="banks-container">
+        <article>
+          <Image
+            src="https://github.com/GenesisMauries/bank-list-app/assets/39414582/866e8492-0435-41bb-89aa-49f18947b16d"
+            width={400}
+            height={400}
+            alt="Tarjeta"
+          />
+        </article>
+        <article>
+          <h3>Busqueda por nombre</h3>
+          <Search
+            searchTerm={searchTerm}
+            handleSearchChange={handleSearchChange}
+          />
+        </article>
+      </section>
       <h1>Lista de bancos</h1>
-      <button onClick={handleSort}>Ordenar {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}</button>
+      <button onClick={handleSort}>
+        Ordenar {sortOrder === "asc" ? "A-Z" : "Z-A"}
+      </button>
       {loading ? (
         <h2>Cargando bancos... ⬆️</h2>
       ) : (
