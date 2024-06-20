@@ -1,19 +1,58 @@
+"use client";
+import { useState, useEffect } from "react";
+import { getBanks } from "../services/api";
+import Card from "../components/card";
+import Search from "../components/search";
+import List from "../components/list";
 
-import { getBanks } from '../services/api';
-import Card from '../components/card';
+export default function Banks() {
+  const [banks, setBanks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
-async function fetchBanks(){ return await getBanks()}
+  useEffect(() => {
+    getBanks()
+      .then((fetchedBanks) => {
+        setBanks(fetchedBanks);
+        setLoading(false);
+      })
+      .catch((error) => {
+        // console.error("Error fetching banks:", error);
+        setLoading(false);
+      });
+  }, []);
 
-export default async function Banks() {
-  const banks = await fetchBanks();
+  const searchBanks = (searchTerm) => {
+    if (searchTerm === "") {
+      return banks;
+    }
+    return banks.filter((bank) =>
+      bank.bankName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
+  const filteredBanks = searchBanks(searchTerm);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <section>
+      <article>
+        <h3>Busqueda por nombre</h3>
+        <Search
+          searchTerm={searchTerm}
+          handleSearchChange={handleSearchChange}
+        />
+      </article>
+
       <h1>Lista de Bancos</h1>
-      <ul>
-        {banks.map((bank) => (
-          <Card key = {bank.bankName} data={bank}></Card>
-        ))}
-      </ul>
+      {loading ? (
+        <h2>Cargando bancos... ⬆️</h2>
+      ) : (
+        <List banks={filteredBanks} searchTerm={searchTerm} />
+      )}
     </section>
   );
 }
