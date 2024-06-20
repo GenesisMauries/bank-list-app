@@ -72,10 +72,12 @@ export default function Banks() {
           />
         </article>
       </section>
-      <h1>Lista de bancos</h1>
-      <button onClick={handleSort}>
-        Ordenar {sortOrder === "asc" ? "A-Z" : "Z-A"}
-      </button>
+      <section className="list-header">
+        <h1>Lista de bancos</h1>
+        <button onClick={handleSort}>
+          Ordenar {sortOrder === "asc" ? "A-Z" : "Z-A"}
+        </button>
+      </section>
       {loading ? (
         <h2>Cargando bancos... ⬆️</h2>
       ) : (

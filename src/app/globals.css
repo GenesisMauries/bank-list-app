@@ -27,7 +27,7 @@ a {
   justify-content: space-evenly;
 }
 
-.banks-container > article > h3{
+.banks-container > article > h3 {
   color: #4e5c6b;
   font-size: 32px;
 }
@@ -45,23 +45,34 @@ a {
   .banks-container > article > input {
     width: 90%;
   }
-  .banks-container > article{
+  .banks-container > article {
     text-align: center;
     margin-top: 15px;
   }
-}
-/*body {
-  background-color: #000;
-  font-family: "Courier New", Courier, monospace;
-}
-h1,
-section > h2,
-section > article > h3 {
-  color: #fff;
+  .list-header {
+    display: block !important;
+    margin-top: 15px;
+    text-align: center;
+  }
 }
 
-section > article {
-  text-align: center;
+.list-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #4e5c6b;
+  font-size: 32px;
+  justify-content: space-around;
+}
+
+.list-header button {
+  background: linear-gradient(90deg, #ff6811 0, #ff0958);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  width: 150px;
+  height: 30px;
 }
 
 ul {
@@ -70,6 +81,7 @@ ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  color: #444;
 }
 
 ul > li {
@@ -78,9 +90,9 @@ ul > li {
   padding: 16px;
   margin: 8px 0;
   border-radius: 8px;
-  background-color: #aeaeae;
+  background-color: #ffecec;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 260px;
+  width: 360px;
 }
 
 ul > li > img {
@@ -88,20 +100,12 @@ ul > li > img {
   margin-right: 15px;
 }
 
-h2 {
-  color: #fff;
-  text-align: center;
-}
-input {
-  width: 260px;
-  height: 30px;
-  border-radius: 8px;
-}
-
 li > article > button {
   margin-left: 50%;
   border-radius: 8px;
+  background: linear-gradient(90deg, #ff6811 0, #ff0958);
+  color: #fff;
+  border: none;
+  width: 80px;
+  height: 30px;
 }
-section > button{
-  border-radius: 8px;
-}*/
