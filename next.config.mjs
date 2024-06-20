@@ -11,12 +11,10 @@ const nextConfig = {
       },
     ],
   },
-  // next.config.mjs
 
   async headers() {
     return [
       {
-        // Apply headers to all routes
         source: "/(.*)",
         headers: [
           {
@@ -25,7 +23,7 @@ const nextConfig = {
           },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://deploy-bank-list-app-git-new-styles-genesis-projects-e622ce38.vercel.app/",
+            value: "https://deploy-bank-list-app.vercel.app/",
           },
           {
             key: "Access-Control-Allow-Methods",
