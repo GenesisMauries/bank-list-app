@@ -1,6 +1,6 @@
 import Card from "./card";
 
-export default function List({ banks, searchTerm }) {
+export default function List({ banks, searchTerm, onDelete }) {
   if (banks.length === 0) {
     return (
       <h2>
@@ -12,7 +12,7 @@ export default function List({ banks, searchTerm }) {
   return (
     <ul>
       {banks.map((bank) => (
-        <Card key={bank.bankName} data={bank} />
+        <Card key={bank.bankName} data={bank} onDelete={onDelete} />
       ))}
     </ul>
   );

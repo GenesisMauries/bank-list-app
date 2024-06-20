@@ -32,7 +32,11 @@ export default function Banks() {
   };
 
   const filteredBanks = searchBanks(searchTerm);
-
+  const handleDeleteBank = (bankName) => {
+    setBanks((prevBanks) =>
+      prevBanks.filter((bank) => bank.bankName !== bankName)
+    );
+  };
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -47,11 +51,15 @@ export default function Banks() {
         />
       </article>
 
-      <h1>Lista de Bancos</h1>
+      <h1>Lista de bancos</h1>
       {loading ? (
         <h2>Cargando bancos... ⬆️</h2>
       ) : (
-        <List banks={filteredBanks} searchTerm={searchTerm} />
+        <List
+          banks={filteredBanks}
+          searchTerm={searchTerm}
+          onDelete={handleDeleteBank}
+        />
       )}
     </section>
   );
