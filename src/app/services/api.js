@@ -4,7 +4,7 @@ export function getBanks() {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "https://deploy-bank-list-app.vercel.app/",
     },
   })
     .then((response) => response.json())
