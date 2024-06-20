@@ -9,6 +9,7 @@ export default function Banks() {
   const [banks, setBanks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
     getBanks()
@@ -40,7 +41,18 @@ export default function Banks() {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
+  const handleSort = () => {
+    const sortedBanks = [...banks].sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a.bankName.localeCompare(b.bankName);
+      } else {
+        return b.bankName.localeCompare(a.bankName);
+      }
+    });
 
+    setBanks(sortedBanks);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
   return (
     <section>
       <article>
@@ -52,6 +64,7 @@ export default function Banks() {
       </article>
 
       <h1>Lista de bancos</h1>
+      <button onClick={handleSort}>Ordenar {sortOrder === 'asc' ? 'A-Z' : 'Z-A'}</button>
       {loading ? (
         <h2>Cargando bancos... ⬆️</h2>
       ) : (
