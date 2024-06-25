@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import Button from "./button";
 
 function Card({ data, onDelete }) {
   const [deleting, setDeleting] = useState(false);
@@ -22,9 +23,12 @@ function Card({ data, onDelete }) {
       <article>
         <h3>{data.bankName}</h3>
         <p>{data.description}</p>
-        <button onClick={handleDelete} disabled={deleting}>
-          {deleting ? "Borrando..." : "Borrar"}
-        </button>
+        <Button
+          onClick={handleDelete}
+          text="Borrar"
+          loadingText="Borrando..."
+          isLoading={deleting}
+        />
       </article>
     </li>
   );

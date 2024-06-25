@@ -1,20 +1,29 @@
-'use client'
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { getBanks } from "../services/api";
 import Search from "../components/search";
 import List from "../components/list";
+import Button from "../components/button";
 import Image from "next/image";
 
-export async function getServerSideProps() {
-  const banks = await getBanks();
-  return { props: { initialBanks: banks } };
-}
-
-export default  function Banks({ initialBanks }) {
-  const [banks, setBanks] = useState(initialBanks);
+export default function Banks() {
+  const [banks, setBanks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState("asc");
+  const [sorting, setSorting] = useState(false);
+
+  useEffect(() => {
+    getBanks()
+      .then((fetchedBanks) => {
+        setBanks(fetchedBanks);
+        setLoading(false);
+      })
+      .catch((error) => {
+        // console.error("Error fetching banks:", error);
+        setLoading(false);
+      });
+  }, []);
 
   const searchBanks = (searchTerm) => {
     if (searchTerm === "") {
@@ -35,16 +44,21 @@ export default  function Banks({ initialBanks }) {
     setSearchTerm(event.target.value);
   };
   const handleSort = () => {
-    const sortedBanks = [...banks].sort((a, b) => {
-      if (sortOrder === "asc") {
-        return a.bankName.localeCompare(b.bankName);
-      } else {
-        return b.bankName.localeCompare(a.bankName);
-      }
-    });
+    setSorting(true);
+    setTimeout(() => {
+      const sortedBanks = [...banks].sort((a, b) => {
+        if (sortOrder === "asc") {
+          return a.bankName.localeCompare(b.bankName);
+        } else {
+          return b.bankName.localeCompare(a.bankName);
+        }
+      });
 
-    setBanks(sortedBanks);
-    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+      setBanks(sortedBanks);
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+      setSorting(false);
+    }, 1000);
+    
   };
   return (
     <section>
@@ -67,9 +81,12 @@ export default  function Banks({ initialBanks }) {
       </section>
       <section className="list-header">
         <h1>Lista de bancos</h1>
-        <button onClick={handleSort}>
-          Ordenar {sortOrder === "asc" ? "A-Z" : "Z-A"}
-        </button>
+        <Button
+          onClick={handleSort}
+          text={`Ordenar ${sortOrder === "asc" ? "A-Z" : "Z-A"}`}
+          loadingText="Ordenando..."
+          isLoading={sorting}
+        />
       </section>
       {loading ? (
         <h2>Cargando bancos... ⬆️</h2>
