@@ -1,27 +1,20 @@
-"use client";
-import { useState, useEffect } from "react";
+'use client'
+import { useState } from "react";
 import { getBanks } from "../services/api";
-import Card from "../components/card";
 import Search from "../components/search";
 import List from "../components/list";
 import Image from "next/image";
-export default function Banks() {
-  const [banks, setBanks] = useState([]);
+
+export async function getServerSideProps() {
+  const banks = await getBanks();
+  return { props: { initialBanks: banks } };
+}
+
+export default  function Banks({ initialBanks }) {
+  const [banks, setBanks] = useState(initialBanks);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState("asc");
-
-  useEffect(() => {
-    getBanks()
-      .then((fetchedBanks) => {
-        setBanks(fetchedBanks);
-        setLoading(false);
-      })
-      .catch((error) => {
-        // console.error("Error fetching banks:", error);
-        setLoading(false);
-      });
-  }, []);
 
   const searchBanks = (searchTerm) => {
     if (searchTerm === "") {
